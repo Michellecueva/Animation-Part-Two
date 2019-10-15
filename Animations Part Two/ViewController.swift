@@ -126,24 +126,31 @@ class ViewController: UIViewController {
        }()
     
     @objc func linearButtonPressed() {
-        linearImage.isHidden = true
+        let alphaLevel: CGFloat = linearImage.alpha == 0 ? 1 : 0
+        linearImage.alpha = alphaLevel
     }
     
     @objc func easeInButtonPressed() {
-        easeInImage.isHidden = true
+        let alphaLevel: CGFloat = easeInImage.alpha == 0 ? 1 : 0
+        easeInImage.alpha = alphaLevel
     }
     
     @objc func easeOutButtonPressed() {
-        easeOutImage.isHidden = true
+        let alphaLevel: CGFloat = easeOutImage.alpha == 0 ? 1 : 0
+        easeOutImage.alpha = alphaLevel
     }
     
     
     @objc func easeInEaseOutButtonPressed() {
-        easeInEaseOutImage.isHidden = true
+        let alphaLevel: CGFloat = easeInEaseOutImage.alpha == 0 ? 1 : 0
+        easeInEaseOutImage.alpha = alphaLevel
     }
     
     @objc func resetButtonPressed() {
-         self.easeIn.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.linearImage.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.easeInImage.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.easeOutImage.transform = CGAffineTransform(translationX: 0, y: 0)
+        self.easeInEaseOutImage.transform = CGAffineTransform(translationX: 0, y: 0)
     }
     
     @objc func animateButtonPressed() {

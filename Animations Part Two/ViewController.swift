@@ -32,6 +32,17 @@ class ViewController: UIViewController {
         return stackView
     }()
     
+    lazy var imageStackview: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .fillEqually
+        stackView.addArrangedSubview(linearImage)
+        stackView.addArrangedSubview(easeInImage)
+        stackView.addArrangedSubview(easeOutImage)
+        stackView.addArrangedSubview(easeInEaseOutImage)
+        return stackView
+    }()
     
     lazy var linear: UIButton = {
         let button = UIButton()
@@ -86,29 +97,71 @@ class ViewController: UIViewController {
          return button
      }()
     
+    lazy var linearImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "beachBall")
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
+    
+    lazy var easeInImage: UIImageView = {
+           let image = UIImageView()
+           image.image = UIImage(named: "beachBall")
+           image.contentMode = .scaleAspectFit
+           return image
+    }()
+    
+    lazy var easeOutImage: UIImageView = {
+           let image = UIImageView()
+           image.image = UIImage(named: "beachBall")
+           image.contentMode = .scaleAspectFit
+           return image
+    }()
+    
+    lazy var easeInEaseOutImage: UIImageView = {
+              let image = UIImageView()
+              image.image = UIImage(named: "beachBall")
+              image.contentMode = .scaleAspectFit
+              return image
+       }()
     
     @objc func linearButtonPressed() {
-       
+        linearImage.isHidden = true
     }
     
     @objc func easeInButtonPressed() {
-       
+        easeInImage.isHidden = true
     }
     
     @objc func easeOutButtonPressed() {
-       
+        easeOutImage.isHidden = true
     }
     
     
     @objc func easeInEaseOutButtonPressed() {
-       
+        easeInEaseOutImage.isHidden = true
     }
     
     @objc func resetButtonPressed() {
-        
+         self.easeIn.transform = CGAffineTransform(translationX: 0, y: 0)
     }
     
     @objc func animateButtonPressed() {
+        UIView.transition(with: view, duration: 3, options: [.curveLinear], animations: {
+            self.linearImage.transform = CGAffineTransform(translationX: 0, y: 600)
+        }, completion: nil)
+        
+        UIView.transition(with: view, duration: 3, options: [.curveEaseIn], animations: {
+            self.easeInImage.transform = CGAffineTransform(translationX: 0, y: 600)
+        }, completion: nil)
+        
+        UIView.transition(with: view, duration: 3, options: [.curveEaseOut], animations: {
+            self.easeOutImage.transform = CGAffineTransform(translationX: 0, y: 600)
+        }, completion: nil)
+        
+        UIView.transition(with: view, duration: 3, options: [.curveEaseInOut], animations: {
+            self.easeInEaseOutImage.transform = CGAffineTransform(translationX: 0, y: 600)
+        }, completion: nil)
         
     }
 
@@ -117,6 +170,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         setSubviews()
         addConstraints()
+        
     }
     
     private func setSubviews() {
@@ -124,6 +178,8 @@ class ViewController: UIViewController {
         self.view.addSubview(topButtonStackview)
         bottomButtonStackview.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(bottomButtonStackview)
+        imageStackview.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(imageStackview)
     }
     
     private func addConstraints() {
@@ -134,7 +190,13 @@ class ViewController: UIViewController {
             
             bottomButtonStackview.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             bottomButtonStackview.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            bottomButtonStackview.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -75)
+            bottomButtonStackview.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -75),
+            
+            imageStackview.leadingAnchor.constraint(equalTo: topButtonStackview.leadingAnchor),
+            imageStackview.trailingAnchor.constraint(equalTo: topButtonStackview.trailingAnchor),
+            imageStackview.topAnchor.constraint(equalTo: topButtonStackview.bottomAnchor, constant: 30),
+            imageStackview.heightAnchor.constraint(equalToConstant: 50)
+            
         ])
     }
 

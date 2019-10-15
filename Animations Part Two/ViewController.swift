@@ -10,20 +10,30 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var buttonStackview: UIStackView = {
+    lazy var topButtonStackview: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.addArrangedSubview(Linear)
-        stackView.addArrangedSubview(EaseIn)
-        stackView.addArrangedSubview(EaseOut)
-        stackView.addArrangedSubview(EaseInEaseOut)
+        stackView.addArrangedSubview(linear)
+        stackView.addArrangedSubview(easeIn)
+        stackView.addArrangedSubview(easeOut)
+        stackView.addArrangedSubview(easeInEaseOut)
+        return stackView
+    }()
+    
+    lazy var bottomButtonStackview: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        stackView.addArrangedSubview(reset)
+        stackView.addArrangedSubview(animate)
         return stackView
     }()
     
     
-    lazy var Linear: UIButton = {
+    lazy var linear: UIButton = {
         let button = UIButton()
         button.setTitle("Linear", for: .normal)
         button.setTitleColor(.blue, for: .normal)
@@ -32,7 +42,7 @@ class ViewController: UIViewController {
         return button
     }()
     
-    lazy var EaseIn: UIButton = {
+    lazy var easeIn: UIButton = {
         let button = UIButton()
         button.setTitle("EaseIn", for: .normal)
         button.setTitleColor(.blue, for: .normal)
@@ -41,7 +51,7 @@ class ViewController: UIViewController {
         return button
     }()
     
-    lazy var EaseOut: UIButton = {
+    lazy var easeOut: UIButton = {
         let button = UIButton()
         button.setTitle("EaseOut", for: .normal)
         button.setTitleColor(.blue, for: .normal)
@@ -50,7 +60,7 @@ class ViewController: UIViewController {
         return button
     }()
     
-    lazy var EaseInEaseOut: UIButton = {
+    lazy var easeInEaseOut: UIButton = {
         let button = UIButton()
         button.setTitle("EaseInEaseOut", for: .normal)
         button.setTitleColor(.blue, for: .normal)
@@ -59,6 +69,22 @@ class ViewController: UIViewController {
         button.addTarget(self, action: #selector(easeInEaseOutButtonPressed), for: .touchUpInside)
         return button
     }()
+    
+    lazy var reset: UIButton = {
+         let button = UIButton()
+         button.setTitle("Reset", for: .normal)
+         button.setTitleColor(.blue, for: .normal)
+         button.addTarget(self, action: #selector(resetButtonPressed), for: .touchUpInside)
+         return button
+     }()
+    
+    lazy var animate: UIButton = {
+         let button = UIButton()
+         button.setTitle("Animate", for: .normal)
+         button.setTitleColor(.blue, for: .normal)
+         button.addTarget(self, action: #selector(animateButtonPressed), for: .touchUpInside)
+         return button
+     }()
     
     
     @objc func linearButtonPressed() {
@@ -77,6 +103,14 @@ class ViewController: UIViewController {
     @objc func easeInEaseOutButtonPressed() {
        
     }
+    
+    @objc func resetButtonPressed() {
+        
+    }
+    
+    @objc func animateButtonPressed() {
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,15 +120,21 @@ class ViewController: UIViewController {
     }
     
     private func setSubviews() {
-        buttonStackview.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(buttonStackview)
+        topButtonStackview.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(topButtonStackview)
+        bottomButtonStackview.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(bottomButtonStackview)
     }
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            buttonStackview.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-            buttonStackview.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            buttonStackview.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100)
+            topButtonStackview.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            topButtonStackview.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            topButtonStackview.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
+            
+            bottomButtonStackview.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            bottomButtonStackview.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            bottomButtonStackview.topAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -75)
         ])
     }
 
